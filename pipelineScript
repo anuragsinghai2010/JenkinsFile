@@ -1,4 +1,4 @@
 node {
   stage 'Run JMeter Test'
-  sh '/Users/anuragjain/Downloads/apache-jmeter-5.4.1/bin/jmeter.sh -n -t /Users/anuragjain/Documents/Projects/Common_services/Calculate_location.jmx -l /Users/anuragjain/Documents/test.jtl -e -o /Users/anuragjain/Documents/results'
+  sh '/Users/anuragjain/Downloads/apache-jmeter-5.4.1/bin/jmeter.sh -n -t /Users/anuragjain/Documents/Projects/Common_services/Calculate_location.jmx -Jusers=2 -l /Users/anuragjain/Documents/test.jtl -e -o /Users/anuragjain/Documents/results'
 }
