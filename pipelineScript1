@@ -1,5 +1,4 @@
-pipeline{
-node {
+pipeline {
     agent any
     stages {
         stage('Checkout') {
@@ -16,4 +15,4 @@ node {
             }
         }
     }
-}}
+}
