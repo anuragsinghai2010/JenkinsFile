@@ -2,6 +2,7 @@ pipeline {
     agent any
      parameters {
         booleanParam(name: "RELEASE", defaultValue: false)
+	string(defaultValue: 'Anurag', name: 'name')])
     }
     stages {
      
@@ -18,7 +19,7 @@ pipeline {
 	stage("Run shell script") {
             steps {
 	    script {
-                    if (params.RELEASE) {
+                    if (params.name == 'Ramesh') {
 	   
 	    	sh "chmod 777 ${env.WORKSPACE}/test.sh"
                 sh './test.sh'
