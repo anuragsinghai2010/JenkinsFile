@@ -33,7 +33,7 @@ pipeline {
 	stage('Location test run'){
         steps {
 	script {
-	start_time =  ${currentBuild.startTimeInMillis}"
+	start_time =  ${currentBuild.startTimeInMillis}
 	println("test start time is": start_time)
         
     }
