@@ -2,6 +2,10 @@ node {
         stage('Checkout') 
             
                 git branch: 'master', url: 'https://github.com/anuragsinghai2010/JenkinsFile.git'
+                
+                echo "Code is cloned from git"
+                
+                mkdir abc
     
         stage('Run JMeter Test') 
      
