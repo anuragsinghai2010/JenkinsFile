@@ -3,17 +3,11 @@ pipeline {
     stages {
         stage('Checkout') {
             steps {
-                git url: 'https://github.com/anuragsinghai2010/JenkinsFile.git'
+                git  branch: 'master'url: 'https://github.com/anuragsinghai2010/JenkinsFile.git'
                 
 
             }
         }
     }
-    stage('Run JMeter Test') {
-        steps {
-            dir('/Users/anuragjain/.jenkins/workspace/Jmeter_test') {
-                sh '/Users/anuragjain/Downloads/apache-jmeter-5.4.1/bin/jmeter.sh -n -t Calculate_location.jmx -l result.jtl'
-            }
-        }
-    }
+    
 }
