@@ -2,7 +2,7 @@ pipeline {
     agent any
    
     stages {
-     int a = 200
+     
         stage("Checkout") {
             steps {
                 git branch: 'master', url: 'https://github.com/anuragsinghai2010/JenkinsFile.git'
@@ -15,6 +15,7 @@ pipeline {
 	
 	stage("Run shell script") {
             steps {
+	    int a = 200
 	    if (a<100){
 	    	sh "chmod 777 ${env.WORKSPACE}/test.sh"
                 sh './test.sh'
