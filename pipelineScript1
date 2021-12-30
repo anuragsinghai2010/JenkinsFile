@@ -3,7 +3,7 @@ pipeline {
     stages {
 	stage("Run shell script") {
             steps {
-                sh 'test.sh'
+                sh '/Users/anuragjain/.jenkins/workspace/Jmeter_test/test.sh'
                 echo "Shell script has run is completed"
             }
         }
