@@ -2,60 +2,70 @@ def location_start_time
 def location_end_time
 def product_start_time
 def product_end_time
-    
+
 pipeline {
-    agent any
-     parameters {
-        booleanParam(name: "RELEASE", defaultValue: false)
-	string(defaultValue: 'stage', name: 'environment')
+  agent any
+  parameters {
+    booleanParam(name: "RELEASE", defaultValue: false)
+    string(defaultValue: 'stage', name: 'environment')
+  }
+  stages {
+
+    stage("Checkout") {
+      steps {
+        git branch: 'master', url: 'https://github.com/anuragsinghai2010/JenkinsFile.git'
+        echo "Checkout is completed"
+        sleep 5
+      }
     }
-    stages {
-     
-        stage("Checkout") {
-            steps {
-                git branch: 'master', url: 'https://github.com/anuragsinghai2010/JenkinsFile.git'
-                echo "Checkout is completed"
-		sleep 5
+
+    stage("Run shell script") {
+      steps {
+        script {
+          if (params.environment == 'Prod') {
+
+            sh "chmod 777 ${env.WORKSPACE}/test.sh"
+            sh './test.sh'
+            echo "Shell script has run is completed"
+
+          }
+        }
+      }
+    }
+
+    stage("Run JMeter Test") {
+      parallel {
+        stage('Location test run') {
+          steps {
+            script {
+              location_start_time = System.currentTimeMillis()
+              sh '/Users/anuragjain/Downloads/apache-jmeter-5.4.1/bin/jmeter.sh -n -t Calculate_location.jmx -l result.jtl'
+              echo "Test is completed for Location"
+              location_end_time = System.currentTimeMillis()
+              echo "location start time is $location_start_time and location end time is $location_end_time"
             }
+
+          }
         }
-	
-	
-	
-	stage("Run shell script") {
-            steps {
-	    script {
-                    if (params.environment == 'Prod') {
-	   
-	    	sh "chmod 777 ${env.WORKSPACE}/test.sh"
-                sh './test.sh'
-                echo "Shell script has run is completed"
-		
-            }}}
+        stage('Product test run') {
+          steps {
+	   script{
+	    product_start_time = System.currentTimeMillis()
+            sh '/Users/anuragjain/Downloads/apache-jmeter-5.4.1/bin/jmeter.sh -n -t Calculate_product.jmx -l result1.jtl'
+            echo "Test is completed for Product"
+	    product_end_time = System.currentTimeMillis()
+	    echo "product start time is $product_start_time and product end time is $product_end_time"
+
+          }
         }
-	
-	stage("Run JMeter Test") {
-	parallel{
-	stage('Location test run'){
-        steps {
-	script{
-	 location_start_time =  System.currentTimeMillis()     
-                sh '/Users/anuragjain/Downloads/apache-jmeter-5.4.1/bin/jmeter.sh -n -t Calculate_location.jmx -l result.jtl'
-		echo "Test is completed for Location" 
-	location_end_time =  System.currentTimeMillis()
-	echo "location start time is $location_start_time and location end time is $location_end_time"
-	}
-            
-        }
-    }
-    stage('Product test run'){
-        steps {
-            
-                sh '/Users/anuragjain/Downloads/apache-jmeter-5.4.1/bin/jmeter.sh -n -t Calculate_product.jmx -l result1.jtl'
-		echo "Test is completed for Product" 
-            
-        	}
-    	}
+      }
     }
   }
- }
+  stage("variables check") {
+      steps {
+        echo "location start time is $location_start_time and location end time is $location_end_time"
+	echo "product start time is $product_start_time and product end time is $product_end_time"
+      }
+    }
+}
 }
