@@ -32,6 +32,10 @@ pipeline {
 	parallel{
 	stage('Location test run'){
         steps {
+	script {
+        def now = new Date()
+        println now.format("yyMMdd.HHmm", TimeZone.getTimeZone('UTC'))
+    }
             
                 sh '/Users/anuragjain/Downloads/apache-jmeter-5.4.1/bin/jmeter.sh -n -t Calculate_location.jmx -l result.jtl'
 		echo "Test is completed for Location" 
