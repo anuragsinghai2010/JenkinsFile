@@ -1,6 +1,12 @@
 pipeline {
     agent any
-    stages {
+        stage("Checkout") {
+            steps {
+                git branch: 'master', url: 'https://github.com/anuragsinghai2010/JenkinsFile.git'
+                echo "Checkout is completed"
+            }
+        }
+	stages {
 	stage("Run shell script") {
             steps {
 	    dir('/Users/anuragjain/.jenkins/workspace/Jmeter_test') {
@@ -9,12 +15,6 @@ pipeline {
             }
         }
 	}
-        stage("Checkout") {
-            steps {
-                git branch: 'master', url: 'https://github.com/anuragsinghai2010/JenkinsFile.git'
-                echo "Checkout is completed"
-            }
-        }
 	stage("Run JMeter Test") {
         steps {
             dir('/Users/anuragjain/.jenkins/workspace/Jmeter_test') {
