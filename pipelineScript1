@@ -41,7 +41,7 @@ pipeline {
                 sh '/Users/anuragjain/Downloads/apache-jmeter-5.4.1/bin/jmeter.sh -n -t Calculate_location.jmx -l result.jtl'
 		echo "Test is completed for Location" 
 	location_end_time =  System.currentTimeMillis()
-	echo "start time is $location_start_time and end time is $location_end_time
+	echo "location start time is $location_start_time and location end time is $location_end_time"
 	
             
         }
