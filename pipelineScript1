@@ -34,7 +34,7 @@ pipeline {
         steps {
 	script {
 	echo "Hi Hello"
-	def start_time =  "Anurag"
+	def start_time =  ${currentBuild.startTimeInMillis}.toString()
 	echo "start time is $start_time"
         
     }
