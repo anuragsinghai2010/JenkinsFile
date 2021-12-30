@@ -34,7 +34,7 @@ pipeline {
         steps {
 	script {
         def now = new Date()
-        println now.format("yyMMdd.HHmm", TimeZone.getTimeZone('UTC'))
+        println now.format("yyyyMMddHHmmss")
     }
             
                 sh '/Users/anuragjain/Downloads/apache-jmeter-5.4.1/bin/jmeter.sh -n -t Calculate_location.jmx -l result.jtl'
