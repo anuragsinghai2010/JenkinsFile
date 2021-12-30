@@ -1,13 +1,10 @@
-pipeline {
-    agent any
-    stages {
-        stage('Checkout') {
-            steps {
-                git  branch: 'master', url: 'https://github.com/anuragsinghai2010/JenkinsFile.git'
-                
-
-            }
-        }
-    }
+node {
+        stage('Checkout') 
+            
+                git branch: 'master', url: 'https://github.com/anuragsinghai2010/JenkinsFile.git'
     
+        stage('Run JMeter Test') 
+     
+            sh '/Users/anuragjain/Downloads/apache-jmeter-5.4.1/bin/jmeter.sh -n -t /Users/anuragjain/.jenkins/workspace/Jmeter_test/Calculate_location.jmx -l result.jtl'
+            
 }
