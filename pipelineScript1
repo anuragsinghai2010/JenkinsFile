@@ -10,7 +10,7 @@ pipeline {
 	
 	stage("Run shell script") {
             steps {
-	    	sh "chmod 777 ${env.WORKSPACE}"
+	    	sh "chmod 777 ${env.WORKSPACE}/test.sh"
                 sh './test.sh'
                 echo "Shell script has run is completed"
             }
