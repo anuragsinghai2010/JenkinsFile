@@ -65,7 +65,7 @@ pipeline {
 	echo "product start time is $product_start_time and product end time is $product_end_time"
 	
 	 sh "chmod 777 ${env.WORKSPACE}/test1.sh"
-            sh './test1.sh location_start_time location_end_time product_start_time product_end_time'
+            sh './test1.sh $location_start_time location_end_time product_start_time product_end_time'
             echo "2nd Shell script has run is completed"
       }
     }
