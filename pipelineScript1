@@ -42,7 +42,6 @@ pipeline {
               sh '/Users/anuragjain/Downloads/apache-jmeter-5.4.1/bin/jmeter.sh -n -t Calculate_location.jmx -l result.jtl'
               echo "Test is completed for Location"
               location_end_time = System.currentTimeMillis()
-              echo "location start time is $location_start_time and location end time is $location_end_time"
             }
 
           }
@@ -54,7 +53,6 @@ pipeline {
             sh '/Users/anuragjain/Downloads/apache-jmeter-5.4.1/bin/jmeter.sh -n -t Calculate_product.jmx -l result1.jtl'
             echo "Test is completed for Product"
 	    product_end_time = System.currentTimeMillis()
-	    echo "product start time is $product_start_time and product end time is $product_end_time"
 
           }
         }
