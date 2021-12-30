@@ -1,5 +1,10 @@
 pipeline {
     agent any
+    def location_start_time
+    def location_end_time
+    def product_start_time
+    def product_end_time
+    
      parameters {
         booleanParam(name: "RELEASE", defaultValue: false)
 	string(defaultValue: 'stage', name: 'environment')
@@ -32,15 +37,12 @@ pipeline {
 	parallel{
 	stage('Location test run'){
         steps {
-	script {
-	echo "Hi Hello"
-	def start_time =  System.currentTimeMillis()
-	echo "start time is $start_time"
-        
-    }
-            
+	 location_start_time =  System.currentTimeMillis()     
                 sh '/Users/anuragjain/Downloads/apache-jmeter-5.4.1/bin/jmeter.sh -n -t Calculate_location.jmx -l result.jtl'
 		echo "Test is completed for Location" 
+	location_end_time =  System.currentTimeMillis()
+	echo "start time is $location_start_time and end time is $location_end_time
+	
             
         }
     }
