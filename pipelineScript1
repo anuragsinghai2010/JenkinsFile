@@ -7,7 +7,6 @@ pipeline {
 
             }
         }
-    }
     stage("Run JMeter Test") {
         steps {
             dir('/Users/anuragjain/.jenkins/workspace/Jmeter_test') {
