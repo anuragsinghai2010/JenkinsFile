@@ -10,13 +10,12 @@ pipeline {
 	
 	stage("Run shell script") {
             steps {
-	    dir('${env.WORKSPACE}') {
 	    	sh "chmod 777 ${env.WORKSPACE}"
                 sh './test.sh'
                 echo "Shell script has run is completed"
             }
         }
-	}
+	
 	stage("Run JMeter Test") {
         steps {
             
