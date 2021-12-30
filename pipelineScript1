@@ -51,14 +51,14 @@ pipeline {
                     steps {
                         echo 'stage B started'
                         sleep 30
-                        echo 'stage B Ended' //will not execute because of above stage fail
+                        echo 'stage B Ended' //May complete before Stage A
                     }
                 }
                  stage('stage C') {
                     steps {
                         echo 'stage C started'
 			sleep 20
-                        echo 'stage C Ended' //May complete before Stage A fails
+                        echo 'stage C Ended' //May complete before Stage A & B
                     }
                 }
              }
