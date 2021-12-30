@@ -29,13 +29,24 @@ pipeline {
         }
 	
 	stage("Run JMeter Test") {
+	parallel{
+	stage('Location test run'){
         steps {
             
                 sh '/Users/anuragjain/Downloads/apache-jmeter-5.4.1/bin/jmeter.sh -n -t Calculate_location.jmx -l result.jtl'
-		echo "Test is completed" 
+		echo "Test is completed for Location" 
             
         }
     }
+    stage('Product test run'){
+        steps {
+            
+                sh '/Users/anuragjain/Downloads/apache-jmeter-5.4.1/bin/jmeter.sh -n -t Calculate_product.jmx -l result1.jtl'
+		echo "Test is completed for Product" 
+            
+        }
+    }
+    }}
     stage('Validate Fail fast') {
              failFast true
              parallel {
