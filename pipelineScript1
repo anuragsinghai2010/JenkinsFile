@@ -33,9 +33,9 @@ pipeline {
 	stage('Location test run'){
         steps {
 	script {
-        def now = new Date()
-	echo "TimeStamp: ${currentBuild.startTimeInMillis}"
-        println now.format("yyyyMMddHHmmss")
+	start_time =  ${currentBuild.startTimeInMillis}"
+	println("test start time is": start_time)
+        
     }
             
                 sh '/Users/anuragjain/Downloads/apache-jmeter-5.4.1/bin/jmeter.sh -n -t Calculate_location.jmx -l result.jtl'
