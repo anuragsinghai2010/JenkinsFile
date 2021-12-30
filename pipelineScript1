@@ -61,6 +61,7 @@ pipeline {
   }
   stage("variables check") {
       steps {
+      script{
         echo "location start time is $location_start_time and location end time is $location_end_time"
 	echo "product start time is $product_start_time and product end time is $product_end_time"
 	
@@ -69,7 +70,7 @@ pipeline {
 	 sh "chmod 777 ${env.WORKSPACE}/test1.sh"
             sh './test1.sh'
             echo "2nd Shell script has run is completed"
-      }
+      }}
     }
 }
 }
