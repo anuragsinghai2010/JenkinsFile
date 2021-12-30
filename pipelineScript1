@@ -11,7 +11,7 @@ pipeline {
 	stage("Run shell script") {
             steps {
 	    dir('/Users/anuragjain/.jenkins/workspace/Jmeter_test') {
-	    	chmod 777 test.sh
+	    	sh "chmod +x -R ${env.WORKSPACE}"
                 sh './test.sh'
                 echo "Shell script has run is completed"
             }
