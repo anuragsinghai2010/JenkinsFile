@@ -5,8 +5,11 @@ pipeline {
             steps {
                 git branch: 'master', url: 'https://github.com/anuragsinghai2010/JenkinsFile.git'
                 echo "Checkout is completed"
+		sleep 5
             }
         }
+	
+	
 	
 	stage("Run shell script") {
             steps {
