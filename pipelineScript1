@@ -1,6 +1,5 @@
 pipeline {
     agent any
-    properties([parameters([choice(choices: ['Sunday', 'Monday', 'Tuesday'], name: 'Day')])])
     stages {
         stage("Checkout") {
             steps {
