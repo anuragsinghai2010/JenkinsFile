@@ -12,7 +12,7 @@ def main(host, port,sttime,endtime):
     dbname = 'example'
     dbuser = 'smly'
     dbuser_password = 'my_secret_password'
-    query = 'select Float_value from cpu_load_short where time>='+sttime+'and time<='+endtime;
+    query = 'select Float_value from cpu_load_short where time>='+sttime+ 'and time<='+endtime;
     query_where = 'select Int_value from cpu_load_short where host=$host;'
     bind_params = {'host': 'server01'}
     json_body = [
