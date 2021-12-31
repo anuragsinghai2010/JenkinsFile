@@ -65,8 +65,6 @@ pipeline {
         echo "location start time is $location_start_time and location end time is $location_end_time"
 	echo "product start time is $product_start_time and product end time is $product_end_time"
 	
-	export location_start_time
-	
 	 sh "chmod 777 ${env.WORKSPACE}/test1.sh"
             sh """ ./test1.sh ${location_start_time} """ 
             echo "2nd Shell script has run is completed"
