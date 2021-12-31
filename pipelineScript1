@@ -2,6 +2,10 @@ def location_start_time
 def location_end_time
 def product_start_time
 def product_end_time
+def PATH_TO_MODULE=/Users/anuragjain/PycharmProjects/pythonProject-1/venv/lib/python3.9/site-packages
+def PYTHONPATH=/usr/bin
+
+
 
 pipeline {
   agent any
@@ -92,7 +96,7 @@ pipeline {
             sh """ ./test1.sh ${location_start_time} """
             echo "2nd Shell script has run is completed"
 	    sh 'chmod 777 /Users/anuragjain/.jenkins/workspace/Jmeter_test/Influx_requests.py'
-	    sh """ python3 Influx_requests.py """
+	    sh """ /usr/local/bin/python3 Influx_requests.py """
 }
 
       }}}
