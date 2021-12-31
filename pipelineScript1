@@ -52,7 +52,7 @@ pipeline {
       }
     }
 
-    stage("Run Performance Tests") {
+    
       parallel {
         stage('Location test run') {
           steps {
@@ -80,7 +80,7 @@ pipeline {
       }
     }
   }
-  }
+  
   stage("Report Generation") {
       steps {
       script{
