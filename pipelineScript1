@@ -22,7 +22,7 @@ pipeline {
       }
     }
 
-    stage("Run shell script") {
+    stage("Scaling up the test environment") {
       steps {
         script {
           if (params.Scale_up_env) {
@@ -36,7 +36,7 @@ pipeline {
       }
     }
 
-    stage("Run JMeter Test") {
+    stage("Run Performance Tests") {
       parallel {
         stage('Location test run') {
           steps {
@@ -64,7 +64,7 @@ pipeline {
       }
     }
   }
-  stage("variables check") {
+  stage("Report Generation") {
       steps {
       script{
       if(params.Generate_Report){
