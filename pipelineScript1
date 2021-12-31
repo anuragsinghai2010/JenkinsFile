@@ -49,8 +49,8 @@ pipeline {
             }
 		}
           }
-        }
-        stage('Product test run') {
+        
+       
           steps {
 	   script{
 	   if (params.Run_Performance_tests) {
@@ -59,10 +59,11 @@ pipeline {
             echo "Test is completed for Product"
 	    product_end_time = System.currentTimeMillis()
 
-          }}
+          }
         }
       }
     }
+  }
   }
   stage("Report Generation") {
       steps {
