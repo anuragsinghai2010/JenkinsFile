@@ -91,7 +91,7 @@ pipeline {
 	 sh "chmod 777 ${env.WORKSPACE}/test1.sh"
             sh """ ./test1.sh ${location_start_time} """
             echo "2nd Shell script has run is completed"
-	    sh 'python3 Influx_requests.py'
+	    sh './Influx_requests.py'
 }
 
       }}}
