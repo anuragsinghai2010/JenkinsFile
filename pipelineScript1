@@ -49,8 +49,8 @@ pipeline {
             }
 		}
           }
-        
-       
+        }
+       stage('Product test run') {
           steps {
 	   script{
 	   if (params.Run_Performance_tests) {
