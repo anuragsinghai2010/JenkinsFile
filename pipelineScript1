@@ -11,7 +11,6 @@ pipeline {
     booleanParam(name: "Run_Performance_tests", defaultValue: false)
     booleanParam(name: "Generate_Report", defaultValue: false)
     booleanParam(name: "Scale_down_env", defaultValue: false)
-    string(defaultValue: 'stage', name: 'environment')
   }
   stages {
 
