@@ -3,8 +3,10 @@ import argparse
 from influxdb import InfluxDBClient
 
 
-def main(host, port):
+def main(host, port,sttime):
     """Instantiate a connection to the InfluxDB."""
+    print("this is sttime variable")
+    print(sttime)
     user = 'root'
     password = 'root'
     dbname = 'example'
@@ -70,9 +72,11 @@ def parse_args():
                         help='hostname of InfluxDB http API')
     parser.add_argument('--port', type=int, required=True,
                         help='port of InfluxDB http API')
+    parser.add_argument('--sttime', type=str, required=True,
+                        help='port of InfluxDB http API')
     return parser.parse_args()
 
 
 if __name__ == '__main__':
     args = parse_args()
-    main(host=args.host, port=args.port)
+    main(host=args.host, port=args.port, sttime=args.sttime)
