@@ -91,8 +91,12 @@ pipeline {
 	 sh "chmod 777 ${env.WORKSPACE}/test1.sh"
             sh """ ./test1.sh ${location_start_time} """
             echo "2nd Shell script has run is completed"
-	    sh 'pip install requests'
-	    sh 'python  Influx_requests.py'
+	    def get = new URL("https://httpbin.org/get").openConnection();
+def getRC = get.getResponseCode();
+println(getRC);
+if(getRC.equals(200)) {
+    println(get.getInputStream().getText());
+}
 
       }}}
     }
