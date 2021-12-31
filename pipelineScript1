@@ -92,7 +92,8 @@ pipeline {
             sh """ ./test1.sh ${location_start_time} """
             echo "2nd Shell script has run is completed"
 	    sh "chmod 777 /Users/anuragjain/PycharmProjects/pythonProject-1/venv/bin/activate"
-	    sh """ source /Users/anuragjain/PycharmProjects/pythonProject-1/venv/bin/activate ./Influx_requests.py """
+	    sh """ source /Users/anuragjain/PycharmProjects/pythonProject-1/venv/bin/activate  """
+	    sh 'python Influx_requests.py'
 
       }}}
     }
