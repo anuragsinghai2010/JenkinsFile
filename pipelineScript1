@@ -44,6 +44,7 @@ pipeline {
             if(1 == 1){
 	    
 	    error("Build failed because of this and that..")}
+	    sleep 5
 		
 
           }
