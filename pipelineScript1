@@ -41,7 +41,7 @@ pipeline {
         script {
           if (params.Scale_up_env) {
 
-            if(1 == 1){
+            if(1 == 0){
 	    
 	    error("Build failed because of Verify env script got failed")}
 	    sleep 5
