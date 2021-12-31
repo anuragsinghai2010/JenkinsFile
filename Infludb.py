@@ -3,16 +3,16 @@ import argparse
 from influxdb import InfluxDBClient
 
 
-def main(host, port,sttime):
+def main(host, port,sttime,endtime):
     """Instantiate a connection to the InfluxDB."""
     print("this is sttime variable")
-    print(sttime)
+    
     user = 'root'
     password = 'root'
     dbname = 'example'
     dbuser = 'smly'
     dbuser_password = 'my_secret_password'
-    query = 'select Float_value from cpu_load_short where time>= 1640991590000000000 and time<=1640991670000000000;'
+    query = 'select Float_value from cpu_load_short where time>= sttime and time<=endtime;'
     query_where = 'select Int_value from cpu_load_short where host=$host;'
     bind_params = {'host': 'server01'}
     json_body = [
@@ -74,9 +74,11 @@ def parse_args():
                         help='port of InfluxDB http API')
     parser.add_argument('--sttime', type=str, required=True,
                         help='port of InfluxDB http API')
+    parser.add_argument('--endtime', type=str, required=True,
+                        help='port of InfluxDB http API')
     return parser.parse_args()
 
 
 if __name__ == '__main__':
     args = parse_args()
-    main(host=args.host, port=args.port, sttime=args.sttime)
+    main(host=args.host, port=args.port, sttime=args.sttime,  endtime=args.endtime)
