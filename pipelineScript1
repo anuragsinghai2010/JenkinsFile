@@ -11,9 +11,10 @@ pipeline {
     booleanParam(name: "Scale_up_env", defaultValue: false)
     booleanParam(name: "Verify_env", defaultValue: false)
     booleanParam(name: "Run_Performance_tests", defaultValue: false)
+    booleanParam(name: "Post_Data_to_DB", defaultValue: false)
     booleanParam(name: "Generate_Report", defaultValue: false)
     booleanParam(name: "Scale_down_env", defaultValue: false)
-    booleanParam(name: "Post_Data_to_DB", defaultValue: false)
+    
   }
   stages {
     // To Checkout the git scripts and files
@@ -100,6 +101,19 @@ pipeline {
       steps {
       script{
       if(params.Generate_Report){
+
+	    sh 'chmod 777 /Users/anuragjain/.jenkins/workspace/Jmeter_test/Influx_requests.py'
+	    // to call python script with parameters we have to use 3 double quotes at the start and end
+	    // To call python yo need to check the path of the python, also to convert milli seconds to nanosends added 000000
+	    sh """ /usr/local/bin/python3 Influx_requests.py --host 'localhost' --port 8086 --sttime ${location_start_time}"000000" --endtime ${location_end_time}"000000" """
+}
+
+      }}}
+      
+      stage("Scale_down_env") {
+      steps {
+      script{
+      if(params.Scale_down_env){
         echo "location start time is $location_start_time and location end time is $location_end_time"
 	echo "product start time is $product_start_time and product end time is $product_end_time"
 	
@@ -107,10 +121,7 @@ pipeline {
 	    // to call shell script with parameters we have to use 3 double quotes at the start and end
             sh """ ./test1.sh ${location_start_time} """
             echo "2nd Shell script has run is completed"
-	    sh 'chmod 777 /Users/anuragjain/.jenkins/workspace/Jmeter_test/Influx_requests.py'
-	    // to call python script with parameters we have to use 3 double quotes at the start and end
-	    // To call python yo need to check the path of the python, also to convert milli seconds to nanosends added 000000
-	    sh """ /usr/local/bin/python3 Influx_requests.py --host 'localhost' --port 8086 --sttime ${location_start_time}"000000" --endtime ${location_end_time}"000000" """
+
 }
 
       }}}
