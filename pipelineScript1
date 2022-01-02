@@ -42,7 +42,7 @@ pipeline {
     stage("Verify_env") {
       steps {
         script {
-          if (params.Scale_up_env) {
+          if (params.Verify_env) {
 
             if(1 == 0){
 	    
