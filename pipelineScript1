@@ -90,9 +90,7 @@ pipeline {
                 sh 'chmod 777 /Users/anuragjain/.jenkins/workspace/Jmeter_test/Infludb_write.py'
                 for (int i = 0; i < 10; i++) {
                   // to call python script with parameters we have to use 3 double quotes at the start and end
-                  sh ""
-                  " /usr/local/bin/python3 Infludb_write.py --host 'localhost' --port 8086 "
-                  ""
+                  sh """ /usr/local/bin/python3 Infludb_write.py --host 'localhost' --port 8086 """
 
                 }
               }
@@ -110,11 +108,7 @@ pipeline {
             sh 'chmod 777 /Users/anuragjain/.jenkins/workspace/Jmeter_test/Influx_requests.py'
             // to call python script with parameters we have to use 3 double quotes at the start and end
             // To call python yo need to check the path of the python, also to convert milli seconds to nanosends added 000000
-            sh ""
-            " /usr/local/bin/python3 Influx_requests.py --host 'localhost' --port 8086 --sttime ${location_start_time}"
-            000000 " --endtime ${location_end_time}"
-            000000 " "
-            ""
+            sh """ /usr/local/bin/python3 Influx_requests.py --host 'localhost' --port 8086 --sttime ${location_start_time}000000 --endtime ${location_end_time}000000 """
           }
 
         }
@@ -130,9 +124,7 @@ pipeline {
 
             sh "chmod 777 ${env.WORKSPACE}/test1.sh"
             // to call shell script with parameters we have to use 3 double quotes at the start and end
-            sh ""
-            " ./test1.sh ${location_start_time} "
-            ""
+            sh """ ./test1.sh ${location_start_time} """
             echo "2nd Shell script has run is completed"
 
           }
