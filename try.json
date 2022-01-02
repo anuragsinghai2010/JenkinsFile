@@ -1,0 +1,3 @@
+{
+	"query": ["select Float_value from cpu_load_short", "select Int_value from cpu_load_short", "select String_value from cpu_load_short"]
+}
