@@ -14,6 +14,7 @@ pipeline {
     booleanParam(name: "Run_Performance_tests", defaultValue: false)
     booleanParam(name: "Generate_Report", defaultValue: false)
     booleanParam(name: "Scale_down_env", defaultValue: false)
+    booleanParam(name: "Post_Data_to_DB", defaultValue: false)
   }
   stages {
 
@@ -82,6 +83,19 @@ pipeline {
         }
       }
     }
+    stage('Post_Data_to_DB') {
+          steps {
+	   script{
+	   sleep 2
+	   if (params.Post_Data_to_DB) {
+	 	sh 'chmod 777 /Users/anuragjain/.jenkins/workspace/Jmeter_test/Infludb_write.py'
+		for (int i = 0; i < 10; i++) {
+	    sh """ /usr/local/bin/python3 Infludb_write.py --host 'localhost' --port 8086 """
+
+          }}
+        }
+      }
+    }
   }}
   
   stage("Report Generation") {
@@ -94,8 +108,8 @@ pipeline {
 	 sh "chmod 777 ${env.WORKSPACE}/test1.sh"
             sh """ ./test1.sh ${location_start_time} """
             echo "2nd Shell script has run is completed"
-	    sh 'chmod 777 /Users/anuragjain/.jenkins/workspace/Jmeter_test/Influx_requests.py'
-	    sh """ /usr/local/bin/python3 Infludb.py --host 'localhost' --port 8086 --sttime ${location_start_time} --endtime ${location_end_time} """
+	    sh 'chmod 777 /Users/anuragjain/.jenkins/workspace/Jmeter_test/Infludb_read.py'
+	    sh """ /usr/local/bin/python3 Infludb_read.py --host 'localhost' --port 8086 --sttime ${location_start_time} --endtime ${location_end_time} """
 }
 
       }}}
