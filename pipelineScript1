@@ -109,7 +109,7 @@ pipeline {
             sh """ ./test1.sh ${location_start_time} """
             echo "2nd Shell script has run is completed"
 	    sh 'chmod 777 /Users/anuragjain/.jenkins/workspace/Jmeter_test/Infludb_read.py'
-	    sh """ /usr/local/bin/python3 Infludb_read.py --host 'localhost' --port 8086 --sttime ${location_start_time}+"000000" --endtime ${location_end_time}+"000000" """
+	    sh """ /usr/local/bin/python3 Infludb_read.py --host 'localhost' --port 8086 --sttime ${location_start_time}"000000" --endtime ${location_end_time}"000000" """
 }
 
       }}}
