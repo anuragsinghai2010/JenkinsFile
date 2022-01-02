@@ -1,13 +1,12 @@
+// Variables for current timestamps for jmeter script start and end
 def location_start_time
 def location_end_time
 def product_start_time
 def product_end_time
 
-
-
-
 pipeline {
   agent any
+  // These the parameters needs to choose to run stages
   parameters {
     booleanParam(name: "Scale_up_env", defaultValue: false)
     booleanParam(name: "Verify_env", defaultValue: false)
@@ -17,7 +16,7 @@ pipeline {
     booleanParam(name: "Post_Data_to_DB", defaultValue: false)
   }
   stages {
-
+    // To Checkout the git scripts and files
     stage("Checkout") {
       steps {
         git branch: 'master', url: 'https://github.com/anuragsinghai2010/JenkinsFile.git'
@@ -25,31 +24,27 @@ pipeline {
         sleep 5
       }
     }
-
+    // This stage is for scaling up Kubernetes nodes and pods
     stage("Scaling up the test environment") {
       steps {
         script {
           if (params.Scale_up_env) {
-
             sh "chmod 777 ${env.WORKSPACE}/test.sh"
             sh './test.sh'
             echo "Shell script has run is completed"
-
           }
         }
       }
     }
-    
+    // This is verifiying whether all the required pods are up and running
     stage("Verify_env") {
       steps {
         script {
           if (params.Verify_env) {
-
-            if(1 == 0){
-	    
+            if(1 == 0){	    
+	    // This is to stop pipeline if below condition satisfies
 	    error("Build failed because of Verify env script got failed")}
-	    sleep 5
-		
+	    sleep 5		
 
           }
         }
@@ -62,9 +57,11 @@ pipeline {
           steps {
             script {
 	     if (params.Run_Performance_tests) {
+	      // This is for taking current timestamps and adding 05 hours 30 minutes by using 1.98e+7
               location_start_time = System.currentTimeMillis() +1.98e+7
               sh '/Users/anuragjain/Downloads/apache-jmeter-5.4.1/bin/jmeter.sh -n -t Calculate_location.jmx -l result.jtl'
               echo "Test is completed for Location"
+	      // This is for taking current timestamps and adding 05 hours 30 minutes by using 1.98e+7
               location_end_time = System.currentTimeMillis() +1.98e+7
             }
 		}
@@ -90,6 +87,7 @@ pipeline {
 	   if (params.Post_Data_to_DB) {
 	 	sh 'chmod 777 /Users/anuragjain/.jenkins/workspace/Jmeter_test/Infludb_write.py'
 		for (int i = 0; i < 10; i++) {
+		// to call python script with parameters we have to use 3 double quotes at the start and end
 	    sh """ /usr/local/bin/python3 Infludb_write.py --host 'localhost' --port 8086 """
 
           }}
@@ -106,9 +104,12 @@ pipeline {
 	echo "product start time is $product_start_time and product end time is $product_end_time"
 	
 	 sh "chmod 777 ${env.WORKSPACE}/test1.sh"
+	    // to call shell script with parameters we have to use 3 double quotes at the start and end
             sh """ ./test1.sh ${location_start_time} """
             echo "2nd Shell script has run is completed"
 	    sh 'chmod 777 /Users/anuragjain/.jenkins/workspace/Jmeter_test/Influx_requests.py'
+	    // to call python script with parameters we have to use 3 double quotes at the start and end
+	    // To call python yo need to check the path of the python, also to convert milli seconds to nanosends added 000000
 	    sh """ /usr/local/bin/python3 Influx_requests.py --host 'localhost' --port 8086 --sttime ${location_start_time}"000000" --endtime ${location_end_time}"000000" """
 }
 
