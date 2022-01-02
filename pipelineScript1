@@ -14,7 +14,7 @@ pipeline {
     booleanParam(name: "Post_Data_to_DB", defaultValue: false)
     booleanParam(name: "Generate_Report", defaultValue: false)
     booleanParam(name: "Scale_down_env", defaultValue: false)
-    
+
   }
   stages {
     // To Checkout the git scripts and files
@@ -42,89 +42,103 @@ pipeline {
       steps {
         script {
           if (params.Verify_env) {
-            if(1 == 0){	    
-	    // This is to stop pipeline if below condition satisfies
-	    error("Build failed because of Verify env script got failed")}
-	    sleep 5		
+            if (1 == 0) {
+              // This is to stop pipeline if below condition satisfies
+              error("Build failed because of Verify env script got failed")
+            }
+            sleep 5
 
           }
         }
       }
     }
 
-    stage('Run Performance Tests'){
+    stage('Run Performance Tests') {
       parallel {
         stage('Location test run') {
           steps {
             script {
-	     if (params.Run_Performance_tests) {
-	      // This is for taking current timestamps and adding 05 hours 30 minutes by using 1.98e+7
-              location_start_time = System.currentTimeMillis() +1.98e+7
-              sh '/Users/anuragjain/Downloads/apache-jmeter-5.4.1/bin/jmeter.sh -n -t Calculate_location.jmx -l result.jtl'
-              echo "Test is completed for Location"
-	      // This is for taking current timestamps and adding 05 hours 30 minutes by using 1.98e+7
-              location_end_time = System.currentTimeMillis() +1.98e+7
+              if (params.Run_Performance_tests) {
+                // This is for taking current timestamps and adding 05 hours 30 minutes by using 1.98e+7
+                location_start_time = System.currentTimeMillis() + 1.98e+7
+                sh '/Users/anuragjain/Downloads/apache-jmeter-5.4.1/bin/jmeter.sh -n -t Calculate_location.jmx -l result.jtl'
+                echo "Test is completed for Location"
+                // This is for taking current timestamps and adding 05 hours 30 minutes by using 1.98e+7
+                location_end_time = System.currentTimeMillis() + 1.98e+7
+              }
             }
-		}
           }
         }
-       stage('Product test run') {
+        stage('Product test run') {
           steps {
-	   script{
-	   if (params.Run_Performance_tests) {
-	    product_start_time = System.currentTimeMillis()
-            sh '/Users/anuragjain/Downloads/apache-jmeter-5.4.1/bin/jmeter.sh -n -t Calculate_product.jmx -l result1.jtl'
-            echo "Test is completed for Product"
-	    product_end_time = System.currentTimeMillis()
+            script {
+              if (params.Run_Performance_tests) {
+                product_start_time = System.currentTimeMillis()
+                sh '/Users/anuragjain/Downloads/apache-jmeter-5.4.1/bin/jmeter.sh -n -t Calculate_product.jmx -l result1.jtl'
+                echo "Test is completed for Product"
+                product_end_time = System.currentTimeMillis()
 
+              }
+            }
+          }
+        }
+        stage('Post_Data_to_DB') {
+          steps {
+            script {
+              sleep 2
+              if (params.Post_Data_to_DB) {
+                sh 'chmod 777 /Users/anuragjain/.jenkins/workspace/Jmeter_test/Infludb_write.py'
+                for (int i = 0; i < 10; i++) {
+                  // to call python script with parameters we have to use 3 double quotes at the start and end
+                  sh ""
+                  " /usr/local/bin/python3 Infludb_write.py --host 'localhost' --port 8086 "
+                  ""
+
+                }
+              }
+            }
           }
         }
       }
     }
-    stage('Post_Data_to_DB') {
-          steps {
-	   script{
-	   sleep 2
-	   if (params.Post_Data_to_DB) {
-	 	sh 'chmod 777 /Users/anuragjain/.jenkins/workspace/Jmeter_test/Infludb_write.py'
-		for (int i = 0; i < 10; i++) {
-		// to call python script with parameters we have to use 3 double quotes at the start and end
-	    sh """ /usr/local/bin/python3 Infludb_write.py --host 'localhost' --port 8086 """
 
-          }}
+    stage("Report Generation") {
+      steps {
+        script {
+          if (params.Generate_Report) {
+
+            sh 'chmod 777 /Users/anuragjain/.jenkins/workspace/Jmeter_test/Influx_requests.py'
+            // to call python script with parameters we have to use 3 double quotes at the start and end
+            // To call python yo need to check the path of the python, also to convert milli seconds to nanosends added 000000
+            sh ""
+            " /usr/local/bin/python3 Influx_requests.py --host 'localhost' --port 8086 --sttime ${location_start_time}"
+            000000 " --endtime ${location_end_time}"
+            000000 " "
+            ""
+          }
+
         }
       }
     }
-  }}
-  
-  stage("Report Generation") {
-      steps {
-      script{
-      if(params.Generate_Report){
 
-	    sh 'chmod 777 /Users/anuragjain/.jenkins/workspace/Jmeter_test/Influx_requests.py'
-	    // to call python script with parameters we have to use 3 double quotes at the start and end
-	    // To call python yo need to check the path of the python, also to convert milli seconds to nanosends added 000000
-	    sh """ /usr/local/bin/python3 Influx_requests.py --host 'localhost' --port 8086 --sttime ${location_start_time}"000000" --endtime ${location_end_time}"000000" """
-}
-
-      }}}
-      
-      stage("Scale_down_env") {
+    stage("Scale_down_env") {
       steps {
-      script{
-      if(params.Scale_down_env){
-        echo "location start time is $location_start_time and location end time is $location_end_time"
-	echo "product start time is $product_start_time and product end time is $product_end_time"
-	
-	 sh "chmod 777 ${env.WORKSPACE}/test1.sh"
-	    // to call shell script with parameters we have to use 3 double quotes at the start and end
-            sh """ ./test1.sh ${location_start_time} """
+        script {
+          if (params.Scale_down_env) {
+            echo "location start time is $location_start_time and location end time is $location_end_time"
+            echo "product start time is $product_start_time and product end time is $product_end_time"
+
+            sh "chmod 777 ${env.WORKSPACE}/test1.sh"
+            // to call shell script with parameters we have to use 3 double quotes at the start and end
+            sh ""
+            " ./test1.sh ${location_start_time} "
+            ""
             echo "2nd Shell script has run is completed"
 
-}
+          }
 
-      }}}
+        }
+      }
     }
+  }
 }
-
