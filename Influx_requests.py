@@ -5,7 +5,7 @@ import os
 import requests
 
 def main(host, port, sttime, endtime):
-    path = "/Users/anuragjain/Documents/try.json"
+    path = "try.json"
     try:
         if os.path.exists(path):
             json_file = open(path, mode='r')
