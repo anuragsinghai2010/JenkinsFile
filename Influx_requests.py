@@ -18,7 +18,7 @@ def main(host, port, sttime, endtime):
         print(e)
 
     for query in query_array:
-        response = requests.get("http://"+host+":"+port+"/query?db=example&q=" + query + " where time>="+sttime+" and time<="+endtime+"")
+        response = requests.get("http://"+host+":"+port+"/query?db=local_monitoring1&q=" + query + " where time>="+sttime+" and time<="+endtime+"")
         map = response.json()
         #print(map)
         fin_list = []
