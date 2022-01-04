@@ -11,8 +11,8 @@ print(st)
 def main(host, port):
     """Instantiate a connection to the InfluxDB."""
     user = 'root'
-    password = 'root'
-    dbname = 'example'
+    password = 'root1234'
+    dbname = 'local_monitoring1'
     dbuser = 'smly'
     dbuser_password = 'my_secret_password'
     json_body = [
