@@ -45,18 +45,17 @@ pipeline {
         
     
         script {
-        //  if (params.Verify_env) {
+          if (params.Verify_env) {
             //if (1 == 0) {
               // This is to stop pipeline if below condition satisfies
               //error("Build failed because of Verify env script got failed")
             //}
             
-          //  sh "/usr/local/bin/python3 verify_env.py"
-            sh 'chmod u+x ./kubectl'  
-        sh './kubectl get pods'
+            sh "/usr/local/bin/python3 verify_env.py"
+            
 
          }
-     //   }
+       }
       }
     }
 
