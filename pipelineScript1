@@ -52,7 +52,10 @@ pipeline {
             //}
             env.counter = sh(script: "/usr/local/bin/python3 verify_env.py", returnStdout: true).toString().trim()
             //counter = sh "/usr/local/bin/python3 verify_env.py"
-         //   echo env.counter "my output"
+            echo env.counter
+            if(env.counter=='1'){
+            error("Build failed because of Verify env script got failed")
+            }
             
 
          }
