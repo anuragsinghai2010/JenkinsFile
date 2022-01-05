@@ -51,7 +51,8 @@ pipeline {
               //error("Build failed because of Verify env script got failed")
             //}
             
-            sh "/usr/local/bin/python3 verify_env.py"
+            counter = sh "/usr/local/bin/python3 verify_env.py"
+            echo $counter
             
 
          }
