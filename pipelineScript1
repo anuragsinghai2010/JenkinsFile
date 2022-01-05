@@ -50,9 +50,9 @@ pipeline {
               // This is to stop pipeline if below condition satisfies
               //error("Build failed because of Verify env script got failed")
             //}
-            
-            counter = sh "/usr/local/bin/python3 verify_env.py"
-            echo $counter
+            env.WAR_NAME = sh(script: "/usr/local/bin/python3 verify_env.py", returnStdout: true).toString().trim()
+            //counter = sh "/usr/local/bin/python3 verify_env.py"
+            echo $WAR_NAME
             
 
          }
