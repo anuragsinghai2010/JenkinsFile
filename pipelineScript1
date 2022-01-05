@@ -47,7 +47,7 @@ pipeline {
               // This is to stop pipeline if below condition satisfies
               //error("Build failed because of Verify env script got failed")
             //}
-            sh """ /usr/local/bin/python3 verify_env.py """
+            sh "python verify_env.py"
             
 
           }
