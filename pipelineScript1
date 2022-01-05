@@ -52,7 +52,7 @@ pipeline {
             //}
             env.counter = sh(script: "/usr/local/bin/python3 verify_env.py", returnStdout: true).toString().trim()
             //counter = sh "/usr/local/bin/python3 verify_env.py"
-            echo $env.counter
+            echo env.counter
             
 
          }
