@@ -23,7 +23,6 @@ cluster = "zonal-commits-perf"
 counter = 0
 
 output = subprocess.getoutput("/usr/local/bin/kubectl get pods -n monitoring -o=json")
-print(output)
 json_obj = json.loads(output)
 
 
