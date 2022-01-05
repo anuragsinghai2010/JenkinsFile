@@ -118,7 +118,6 @@ pipeline {
       steps {
         script {
           if (params.Generate_Report) {
-            mail bcc: '', body: 'PFA perf report', cc: 'anurag.jain1@blueyonder.com', from: '', replyTo: '', subject: 'perf_report', to: 'anurag.jain1@blueyonder.com'
             sh 'chmod 777 /Users/anuragjain/.jenkins/workspace/Jmeter_test/Influx_requests.py'
             // to call python script with parameters we have to use 3 double quotes at the start and end
             // To call python yo need to check the path of the python, also to convert milli seconds to nanosends added 000000
