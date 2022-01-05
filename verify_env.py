@@ -23,19 +23,22 @@ cluster = "zonal-commits-perf"
 counter = 0
 
 output = subprocess.getoutput("kubectl get pods -n monitoring -o=json")
-if output:
-    json_obj = json.loads(output)
+
+print(output)
+
+json_obj = json.loads(output)
 
 
-    for i in range(len(json_obj["items"])):
+for i in range(len(json_obj["items"])):
 
-        pod_name = json_obj["items"][i]['metadata']['name']
-        state = (json_obj["items"][i]['status']['containerStatuses'][0]['state'])
-        if 'running' in state.keys():
-            print("Pod "+pod_name+" is in running state")
-        else:
-            issue = json.dumps(state)
-            #print("Pod "+pod_name+" have issues "+issue)
-            counter = counter +1
-    print(counter)
+    pod_name = json_obj["items"][i]['metadata']['name']
+    state = (json_obj["items"][i]['status']['containerStatuses'][0]['state'])
+    if 'running' in state.keys():
+        print("Pod "+pod_name+" is in running state")
+    else:
+        issue = json.dumps(state)
+        #print("Pod "+pod_name+" have issues "+issue)
+        counter = counter +1
+print(counter)
+
 
