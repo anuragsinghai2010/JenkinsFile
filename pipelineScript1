@@ -41,17 +41,22 @@ pipeline {
     // This is verifiying whether all the required pods are up and running
     stage("Verify_env") {
       steps {
-        script {
-          if (params.Verify_env) {
+      withKubeConfig([credentialsId: 'kubernetes-config']) {
+        sh 'chmod u+x ./kubectl'  
+        sh './kubectl get pods'
+    }
+       // script {
+        //  if (params.Verify_env) {
             //if (1 == 0) {
               // This is to stop pipeline if below condition satisfies
               //error("Build failed because of Verify env script got failed")
             //}
-            sh "/usr/local/bin/python3 verify_env.py"
+            
+          //  sh "/usr/local/bin/python3 verify_env.py"
             
 
-          }
-        }
+       //   }
+     //   }
       }
     }
 
