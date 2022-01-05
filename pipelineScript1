@@ -3,6 +3,7 @@ def location_start_time
 def location_end_time
 def product_start_time
 def product_end_time
+def counter
 
 pipeline {
   agent any
@@ -42,11 +43,12 @@ pipeline {
       steps {
         script {
           if (params.Verify_env) {
-            if (1 == 0) {
+            //if (1 == 0) {
               // This is to stop pipeline if below condition satisfies
-              error("Build failed because of Verify env script got failed")
-            }
-            sleep 5
+              //error("Build failed because of Verify env script got failed")
+            //}
+            counter = sh """ python verify_env.py """
+            echo $counter
 
           }
         }
