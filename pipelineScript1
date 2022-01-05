@@ -54,7 +54,11 @@ pipeline {
             //counter = sh "/usr/local/bin/python3 verify_env.py"
             echo env.counter
             if(env.counter=='1'){
+            echo "Inside if statement"
             error("Build failed because of Verify env script got failed")
+            }
+            else{
+            echo "Pipeline will continue"
             }
             
 
