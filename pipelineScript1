@@ -153,7 +153,7 @@ pipeline {
             echo "location start time is $location_start_time and location end time is $location_end_time"
             echo "product start time is $product_start_time and product end time is $product_end_time"
 
-            sh "chmod 777 ${env.WORKSPACE}/test1.sh"
+            sh "chmod 777 ${env.WORKSPACE}/scale_down_env.sh"
             // to call shell script with parameters we have to use 3 double quotes at the start and end
             sh """ ./scale_down_env.sh ${location_start_time} """
             echo "2nd Shell script has run is completed"
