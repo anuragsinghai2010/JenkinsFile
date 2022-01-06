@@ -33,7 +33,7 @@ def main(host, port, sttime, endtime):
                 try:
                     result = map['results'][0]['series'][0]['values'][0][1]
                     print(result)
-                    file1 = open(file_path, "w")  # write mode
+                    file1 = open(file_path, "a")  # write mode
                     print("step1")
                    
                     file1.write(str(result))
