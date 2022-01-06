@@ -31,8 +31,8 @@ pipeline {
       steps {
         script {
           if (params.Scale_up_env) {
-            sh "chmod 777 ${env.WORKSPACE}/test.sh"
-            sh './test.sh'
+            sh "chmod 777 ${env.WORKSPACE}/scale_up_env.sh"
+            sh './scale_up_env.sh'
             echo "Shell script has run is completed"
           }
         }
@@ -155,7 +155,7 @@ pipeline {
 
             sh "chmod 777 ${env.WORKSPACE}/test1.sh"
             // to call shell script with parameters we have to use 3 double quotes at the start and end
-            sh """ ./test1.sh ${location_start_time} """
+            sh """ ./scale_down_env.sh ${location_start_time} """
             echo "2nd Shell script has run is completed"
 
           }
