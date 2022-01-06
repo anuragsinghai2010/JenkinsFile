@@ -22,9 +22,11 @@ pipeline {
     stage("Checkout") {
       steps {
         git branch: 'master', url: 'https://github.com/anuragsinghai2010/JenkinsFile.git'
-        git branch: 'master', url: 'https://github.com/anuragsinghai2010/Jmeter_Script.git'
+        
         echo "Checkout is completed"
         sleep 5
+        
+        git branch: 'master', url: 'https://github.com/anuragsinghai2010/Jmeter_Script.git'
       }
     }
     // This stage is for scaling up Kubernetes nodes and pods
