@@ -33,7 +33,6 @@ def main(host, port):
     ]
 
     client = InfluxDBClient(host, port, user, password, dbname)
-    client = InfluxDBClient(host, port, user, password, dbname1)
 
    # print("Create database: " + dbname)
    # client.create_database(dbname1)
