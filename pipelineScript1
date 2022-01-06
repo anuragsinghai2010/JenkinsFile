@@ -103,6 +103,9 @@ pipeline {
           steps {
             script {
               sleep 2
+              git branch: 'master', url: 'https://github.com/anuragsinghai2010/JenkinsFile.git'
+              echo "Checkout is completed"
+              sleep 5
               if (params.Post_Data_to_DB) {
                 sh 'chmod 777 /Users/anuragjain/.jenkins/workspace/Jmeter_test/Infludb_write.py'
                 for (int i = 0; i < 10; i++) {
