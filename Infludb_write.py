@@ -13,7 +13,6 @@ def main(host, port):
     user = 'root'
     password = 'root1234'
     dbname = 'local_monitoring1'
-    dbname1 = 'local_monitoring'
     dbuser = 'smly'
     dbuser_password = 'my_secret_password'
     json_body = [
@@ -37,7 +36,7 @@ def main(host, port):
     client = InfluxDBClient(host, port, user, password, dbname1)
 
    # print("Create database: " + dbname)
-    client.create_database(dbname1)
+   # client.create_database(dbname1)
 
   #  print("Create a retention policy")
   #  client.create_retention_policy('awesome_policy', '3d', 3, default=True)
