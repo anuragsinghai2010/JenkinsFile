@@ -111,6 +111,22 @@ pipeline {
             }
           }
         }
+        
+         stage('Post_Data_to_DB1') {
+          steps {
+            script {
+              sleep 2
+              if (params.Post_Data_to_DB) {
+                sh 'chmod 777 /Users/anuragjain/.jenkins/workspace/Jmeter_test/Influx_write1.py'
+                for (int i = 0; i < 10; i++) {
+                  // to call python script with parameters we have to use 3 double quotes at the start and end
+                  sh """ /usr/local/bin/python3 Influx_write1.py --host '127.0.0.1' --port 62420 """
+
+                }
+              }
+            }
+          }
+        }
 
       }
     }
