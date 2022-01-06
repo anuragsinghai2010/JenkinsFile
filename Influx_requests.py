@@ -5,35 +5,34 @@ import os
 import requests
 
 def main(host, port, sttime, endtime):
-    path = "/Users/anuragjain/Documents/try.json"
+    path = "try.json"
     try:
         if os.path.exists(path):
             json_file = open(path, mode='r')
             json_obj = json.load(json_file)
-            print(json_obj['query'])
-            query_array = json_obj['query']
+
         else:
             print("This files does not exists")
     except Exception as e:
         print(e)
-
-    for query in query_array:
-        try:
-            response = requests.get("http://"+host+":"+port+"/query?db=local_monitoring1&q=" + query + " where time>="+sttime+" and time<="+endtime+"")
-            map = response.json()
-            print(map)
-            fin_list = []
+    for key in json_obj.keys():
+        print(key)
+        query_array = json_obj[key]
+        print(query_array)
+        for query in query_array:
             try:
-                list1 = map['results'][0]['series'][0]['values']
-                for elem in range(len(list1)):
-                    fin_list.append(list1[elem][1])
-            except:
-                print("Please check the result output")
+                response = requests.get("http://"+host+":"+port+"/query?db="+key+"&q=" + query + " where time>="+sttime+" and time<="+endtime+"")
+                map = response.json()
+                fin_list = []
+                try:
+                    list1 = map['results'][0]['series'][0]['values'][0][1]
+                    print(list1)
+                except:
+                    print("Please check the result output")
+            except Exception as e:
+                print("There is some exception")
+                print(e)
 
-            print(max(fin_list))
-        except Exception as e:
-            print("There is some exception")
-            return e
 
 def parse_args():
     """Parse the args."""
