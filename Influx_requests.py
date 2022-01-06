@@ -5,7 +5,7 @@ import os
 import requests
 
 def main(host, port, sttime, endtime):
-    path = "try.json"
+    path = "/Users/anuragjain/Documents/try.json"
     try:
         if os.path.exists(path):
             json_file = open(path, mode='r')
@@ -18,18 +18,21 @@ def main(host, port, sttime, endtime):
         print(e)
 
     for query in query_array:
-        response = requests.get("http://"+host+":"+port+"/query?db=local_monitoring1&q=" + query + " where time>="+sttime+" and time<="+endtime+"")
-        map = response.json()
-        #print(map)
-        fin_list = []
         try:
-            list1 = map['results'][0]['series'][0]['values']
-            for elem in range(len(list1)):
-                fin_list.append(list1[elem][1])
-        except:
-            print("Please check the result output")
+            response = requests.get("http://"+host+":"+port+"/query?db=example&q=" + query + " where time>="+sttime+" and time<="+endtime+"")
+            map = response.json()
+            print(map)
+            fin_list = []
+            try:
+                list1 = map['results'][0]['series'][0]['values']
+                for elem in range(len(list1)):
+                    fin_list.append(list1[elem][1])
+            except:
+                print("Please check the result output")
 
-        print(max(fin_list))
+            print(max(fin_list))
+        except:
+            print("There is some exception"+e)
 
 def parse_args():
     """Parse the args."""
