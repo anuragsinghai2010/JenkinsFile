@@ -1,11 +1,17 @@
 import argparse
 import json
 import os
+import time
+import datetime
 
 import requests
 
 def main(host, port, sttime, endtime):
     path = "database_Influx.json"
+    ts = time.time()
+    st = datetime.datetime.fromtimestamp(ts).strftime('%Y-%m-%d' + "-" + '%H-%M-%S')
+    print(st)
+    file_path = "//Users//anuragjain//Automtaion_Results//result"+st+".txt"
     try:
         if os.path.exists(path):
             json_file = open(path, mode='r')
@@ -25,8 +31,11 @@ def main(host, port, sttime, endtime):
                 map = response.json()
                 fin_list = []
                 try:
-                    list1 = map['results'][0]['series'][0]['values'][0][1]
-                    print(list1)
+                    result = map['results'][0]['series'][0]['values'][0][1]
+                    print(result)
+                    file1 = open(file_path, "w")  # write mode
+                    file1.write(result)
+                    file1.close()
                 except:
                     print("Please check the result output")
             except Exception as e:
