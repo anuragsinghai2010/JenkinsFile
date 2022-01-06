@@ -31,8 +31,9 @@ def main(host, port, sttime, endtime):
                 print("Please check the result output")
 
             print(max(fin_list))
-        except:
-            print("There is some exception"+e)
+        except Exception as e:
+            print("There is some exception")
+            return e
 
 def parse_args():
     """Parse the args."""
