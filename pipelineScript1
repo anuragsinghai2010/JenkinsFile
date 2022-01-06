@@ -99,10 +99,8 @@ pipeline {
             }
           }
         }
-      }
-    }
-    
-    stage('Post_Data_to_DB') {
+        
+        stage('Post_Data_to_DB') {
           steps {
             script {
               sleep 2
@@ -118,6 +116,10 @@ pipeline {
           }
         }
 
+      }
+    }
+    
+    
     stage("Report Generation") {
       steps {
         script {
