@@ -37,6 +37,7 @@ def main(host, port, sttime, endtime):
                     print("step1")
                    
                     file1.write(str(result))
+                    file1.write("\n")
                     print("step2")
                     file1.close()
                     print("step3")
