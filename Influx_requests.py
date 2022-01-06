@@ -33,10 +33,9 @@ def main(host, port, sttime, endtime):
                 try:
                     result = map['results'][0]['series'][0]['values'][0][1]
                     print(result)
-                    file1 = open(file_path, "w")  # write mode
-                    file1.write(result)
-                    file1.close()
-                except:
+                    
+                except Exception as e:
+                    print(e)      
                     print("Please check the result output")
             except Exception as e:
                 print("There is some exception")
