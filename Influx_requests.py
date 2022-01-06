@@ -36,7 +36,7 @@ def main(host, port, sttime, endtime):
                     file1 = open(file_path, "w")  # write mode
                     print("step1")
                    
-                    file1.write(result)
+                    file1.write(str(result))
                     print("step2")
                     file1.close()
                     print("step3")
