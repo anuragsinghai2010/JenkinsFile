@@ -1,3 +1,5 @@
 {
-	"query": ["select Float_value from cpu_load_short", "select Int_value from cpu_load_short", "select String_value from cpu_load_short"]
+   "local_monitoring1": ["SELECT mean(Float_value) FROM cpu_load_short", "SELECT mean(Int_value) FROM cpu_load_short"],
+    "local_monitoring": ["SELECT mean(Float_value) FROM cpu_load_short", "SELECT mean(Int_value) FROM cpu_load_short"]
 }
+
