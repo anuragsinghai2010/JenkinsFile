@@ -11,7 +11,7 @@ def main(host, port, sttime, endtime):
     ts = time.time()
     st = datetime.datetime.fromtimestamp(ts).strftime('%Y-%m-%d' + "-" + '%H-%M-%S')
     print(st)
-    file_path = "//Users//anuragjain//Automtaion_Results//result"+st+".txt"
+    file_path = "result"+st+".txt"
     try:
         if os.path.exists(path):
             json_file = open(path, mode='r')
