@@ -59,6 +59,9 @@ pipeline {
             }
             else{
             echo "Pipeline will continue"
+            git branch: 'master', url: 'https://github.com/anuragsinghai2010/Jmeter_Script.git'
+            echo "Performance Jmeter scripts Checkout is completed"
+            sleep 5
             }
             
 
@@ -72,9 +75,7 @@ pipeline {
         stage('Location test run') {
           steps {
             script {
-            git branch: 'master', url: 'https://github.com/anuragsinghai2010/Jmeter_Script.git'
-            echo "Performance Jmeter scripts Checkout is completed"
-            sleep 5
+            
               if (params.Run_Performance_tests) {
                 // This is for taking current timestamps and adding 05 hours 30 minutes by using 1.98e+7
                 location_start_time = System.currentTimeMillis() + 1.98e+7
@@ -99,7 +100,10 @@ pipeline {
             }
           }
         }
-        stage('Post_Data_to_DB') {
+      }
+    }
+    
+    stage('Post_Data_to_DB') {
           steps {
             script {
               sleep 2
@@ -117,8 +121,6 @@ pipeline {
             }
           }
         }
-      }
-    }
 
     stage("Report Generation") {
       steps {
