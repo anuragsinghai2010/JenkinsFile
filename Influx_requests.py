@@ -5,7 +5,7 @@ import os
 import requests
 
 def main(host, port, sttime, endtime):
-    path = "try.json"
+    path = "database_Influx.json"
     try:
         if os.path.exists(path):
             json_file = open(path, mode='r')
