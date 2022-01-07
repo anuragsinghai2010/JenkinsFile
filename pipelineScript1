@@ -104,7 +104,7 @@ pipeline {
                 sh 'chmod 777 /Users/anuragjain/.jenkins/workspace/Jmeter_test/Infludb_write.py'
                 for (int i = 0; i < 10; i++) {
                   // to call python script with parameters we have to use 3 double quotes at the start and end
-                  sh """ /usr/local/bin/python3 Infludb_write.py --host '127.0.0.1' --port 62420 """
+                  sh """ /usr/local/bin/python3 Infludb_write.py --host '127.0.0.1' --port 60749 """
 
                 }
               }
@@ -120,7 +120,7 @@ pipeline {
                 sh 'chmod 777 /Users/anuragjain/.jenkins/workspace/Jmeter_test/Influx_write1.py'
                 for (int i = 0; i < 10; i++) {
                   // to call python script with parameters we have to use 3 double quotes at the start and end
-                  sh """ /usr/local/bin/python3 Influx_write1.py --host '127.0.0.1' --port 62420 """
+                  sh """ /usr/local/bin/python3 Influx_write1.py --host '127.0.0.1' --port 60749 """
 
                 }
               }
@@ -139,7 +139,7 @@ pipeline {
             sh 'chmod 777 /Users/anuragjain/.jenkins/workspace/Jmeter_test/Influx_requests.py'
             // to call python script with parameters we have to use 3 double quotes at the start and end
             // To call python yo need to check the path of the python, also to convert milli seconds to nanosends added 000000
-            sh """ /usr/local/bin/python3 Influx_requests.py --host '127.0.0.1' --port 62420 --sttime ${location_start_time}000000 --endtime ${location_end_time}000000 """
+            sh """ /usr/local/bin/python3 Influx_requests.py --host '127.0.0.1' --port 60749 --sttime ${location_start_time}000000 --endtime ${location_end_time}000000 """
           }
 
         }
