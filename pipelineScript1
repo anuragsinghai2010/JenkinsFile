@@ -74,7 +74,7 @@ pipeline {
               if (params.Run_Performance_tests) {
                 // This is for taking current timestamps and adding 05 hours 30 minutes by using 1.98e+7
                 location_start_time = System.currentTimeMillis() + 1.98e+7
-                sh '/Users/anuragjain/Downloads/apache-jmeter-5.4.1/bin/jmeter.sh -n -t Calculate_location.jmx -l result.jtl'
+                sh '/Users/anuragjain/Downloads/apache-jmeter-5.4.1/bin/jmeter.sh -n -t /Users/anuragjain/JenkinsFile/Jmeter_Scripts/Calculate_location.jmx -l result.jtl'
                 echo "Test is completed for Location"
                 // This is for taking current timestamps and adding 05 hours 30 minutes by using 1.98e+7
                 location_end_time = System.currentTimeMillis() + 1.98e+7
@@ -87,7 +87,7 @@ pipeline {
             script {
               if (params.Run_Performance_tests) {
                 product_start_time = System.currentTimeMillis()
-                sh '/Users/anuragjain/Downloads/apache-jmeter-5.4.1/bin/jmeter.sh -n -t Calculate_product.jmx -l result1.jtl'
+                sh '/Users/anuragjain/Downloads/apache-jmeter-5.4.1/bin/jmeter.sh -n -t /Users/anuragjain/JenkinsFile/Jmeter_Scripts/Calculate_product.jmx -l result1.jtl'
                 echo "Test is completed for Product"
                 product_end_time = System.currentTimeMillis()
 
