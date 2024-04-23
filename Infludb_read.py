@@ -1,7 +1,7 @@
 import argparse
 
 from influxdb import InfluxDBClient
-
+### This is to read influxdb
 
 def main(host, port,sttime,endtime):
     """Instantiate a connection to the InfluxDB."""
